@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>لوحة تحكم ZED AUTO</title>
+<meta name="robots" content="noindex, nofollow">
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --teal:#1f969a; --teal-light:#27b8bd; --dark:#080c0c; --dark2:#0d1414;
+    --dark3:#111a1a; --card:#0f1c1c; --border:rgba(31,150,154,.22);
+    --text:#e8f0f0; --text-muted:#7a9a9b; --white:#fff; --danger:#e85d35;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  body{font-family:'Cairo',sans-serif; background:var(--dark); color:var(--text); min-height:100vh;}
+  .wrap{max-width:1100px; margin:0 auto; padding:24px 16px 80px;}
+  header{display:flex; align-items:center; justify-content:space-between; padding:18px 0; border-bottom:1px solid var(--border); margin-bottom:24px;}
+  header h1{color:var(--teal); font-size:22px;}
+  header h1 span{color:var(--white);}
+  .btn{background:var(--teal); color:#00201f; border:none; padding:10px 18px; border-radius:6px; font-weight:700; cursor:pointer; font-family:inherit; font-size:14px; transition:.2s;}
+  .btn:hover{background:var(--teal-light);}
+  .btn.outline{background:transparent; border:1px solid var(--border); color:var(--text);}
+  .btn.danger{background:var(--danger); color:#fff;}
+  .btn.small{padding:6px 12px; font-size:13px;}
+
+  /* شاشة تسجيل الدخول */
+  #loginScreen{min-height:90vh; display:flex; align-items:center; justify-content:center;}
+  .login-card{background:var(--card); border:1px solid var(--border); border-radius:10px; padding:40px; width:100%; max-width:380px; text-align:center;}
+  .login-card h2{color:var(--teal); margin-bottom:6px; font-size:24px;}
+  .login-card p{color:var(--text-muted); margin-bottom:24px; font-size:14px;}
+  input, select, textarea{width:100%; background:var(--dark3); border:1px solid var(--border); color:var(--white); padding:12px 14px; border-radius:6px; font-family:inherit; font-size:14px; margin-bottom:14px; outline:none;}
+  input:focus, select:focus, textarea:focus{border-color:var(--teal);}
+  #loginError{color:var(--danger); font-size:13px; margin-bottom:10px; display:none;}
+
+  /* الداشبورد */
+  #dashboard{display:none;}
+  .card{background:var(--card); border:1px solid var(--border); border-radius:10px; padding:24px; margin-bottom:24px;}
+  .card h3{color:var(--teal); margin-bottom:18px; font-size:18px;}
+  .grid2{display:grid; grid-template-columns:1fr 1fr; gap:14px;}
+  @media(max-width:640px){.grid2{grid-template-columns:1fr;}}
+  label{display:block; font-size:13px; color:var(--text-muted); margin-bottom:6px;}
+  .field{margin-bottom:0;}
+  .hint{font-size:12px; color:var(--text-muted); margin-top:-10px; margin-bottom:14px; display:block;}
+  .hint a{color:var(--teal-light);}
+
+  table{width:100%; border-collapse:collapse;}
+  th, td{padding:12px 8px; text-align:right; border-bottom:1px solid var(--border); font-size:14px;}
+  th{color:var(--text-muted); font-weight:600; font-size:13px;}
+  td img, td .fallback-icon{width:44px; height:44px; border-radius:6px; object-fit:cover; background:var(--dark3); display:flex; align-items:center; justify-content:center; font-size:20px;}
+  .row-actions{display:flex; gap:8px;}
+  .empty-msg{color:var(--text-muted); text-align:center; padding:30px 0;}
+  .top-actions{display:flex; justify-content:space-between; align-items:center; margin-bottom:18px; flex-wrap:wrap; gap:10px;}
+  .badge-count{background:var(--dark3); color:var(--teal); padding:4px 10px; border-radius:20px; font-size:12px;}
+  #formMsg{font-size:13px; margin-top:10px; display:none;}
+  #formMsg.ok{color:var(--teal-light);}
+  #formMsg.err{color:var(--danger);}
+  .toast{position:fixed; bottom:24px; left:50%; transform:translateX(-50%) translateY(100px); background:var(--teal); color:#00201f; padding:14px 24px; border-radius:8px; font-weight:700; z-index:999; transition:.3s;}
+  .toast.show{transform:translateX(-50%) translateY(0);}
+</style>
+</head>
+<body>
+
+<!-- ===== شاشة تسجيل الدخول ===== -->
+<div id="loginScreen">
+  <div class="login-card">
+    <h2>⚡ ZED AUTO</h2>
+    <p>لوحة تحكم إدارة المنتجات</p>
+    <div id="loginError">بيانات الدخول غير صحيحة</div>
+    <input type="email" id="loginEmail" placeholder="البريد الإلكتروني">
+    <input type="password" id="loginPassword" placeholder="كلمة المرور">
+    <button class="btn" style="width:100%" onclick="doLogin()">تسجيل الدخول</button>
+  </div>
+</div>
+
+<!-- ===== الداشبورد ===== -->
+<div id="dashboard">
+  <div class="wrap">
+    <header>
+      <h1>⚡ <span>ZED AUTO</span> — لوحة التحكم</h1>
+      <button class="btn outline small" onclick="doLogout()">تسجيل الخروج</button>
+    </header>
+
+    <!-- نموذج إضافة / تعديل منتج -->
+    <div class="card">
+      <h3 id="formTitle">➕ إضافة منتج جديد</h3>
+      <div class="grid2">
+        <div class="field">
+          <label>اسم المنتج *</label>
+          <input id="f_name" placeholder="مثال: كابل شحن سريع Type-2">
+        </div>
+        <div class="field">
+          <label>العلامة التجارية (Brand) *</label>
+          <input id="f_brand" placeholder="مثال: PowerMax">
+        </div>
+        <div class="field">
+          <label>الفئة *</label>
+          <select id="f_category">
+            <option value="charging">شحن</option>
+            <option value="camera">كاميرات</option>
+            <option value="smart">أنظمة ذكية</option>
+            <option value="battery">بطاريات</option>
+            <option value="interior">إكسسوارات داخلية</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>الشارة (Badge)</label>
+          <select id="f_badgeType">
+            <option value="">بدون شارة</option>
+            <option value="badge-hot">الأكثر مبيعاً</option>
+            <option value="badge-new">جديد</option>
+            <option value="badge-sale">خصم</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>السعر (ج.م) *</label>
+          <input id="f_price" type="number" placeholder="1850">
+        </div>
+        <div class="field">
+          <label>السعر قبل الخصم (اختياري)</label>
+          <input id="f_oldPrice" type="number" placeholder="2200">
+        </div>
+        <div class="field">
+          <label>التقييم (من 1 إلى 5)</label>
+          <input id="f_rating" type="number" min="1" max="5" value="5">
+        </div>
+        <div class="field">
+          <label>عدد التقييمات</label>
+          <input id="f_reviews" type="number" value="0">
+        </div>
+      </div>
+
+      <div class="field">
+        <label>الوصف *</label>
+        <textarea id="f_desc" rows="2" placeholder="وصف قصير للمنتج"></textarea>
+      </div>
+
+      <div class="grid2">
+        <div class="field">
+          <label>رابط صورة المنتج (اختياري)</label>
+          <input id="f_image" placeholder="https://...">
+        </div>
+        <div class="field">
+          <label>إيموجي بديل لو مفيش صورة</label>
+          <input id="f_icon" placeholder="⚡" value="⚡">
+        </div>
+      </div>
+      <span class="hint">
+        مش لازم صورة إجبارية — لو معندك صور، سيب حقل "رابط الصورة" فاضي وهيظهر الإيموجي بدل الصورة.
+        لو عايز ترفع صورة حقيقية: ارفعها مجانًا وبدون تسجيل على
+        <a href="https://imgbb.com/" target="_blank">imgbb.com</a>، وانسخ "Direct Link" وحطّه هنا.
+      </span>
+
+      <button class="btn" onclick="saveProduct()">💾 حفظ المنتج</button>
+      <button class="btn outline" id="cancelEditBtn" style="display:none" onclick="resetForm()">إلغاء التعديل</button>
+      <div id="formMsg"></div>
+    </div>
+
+    <!-- قائمة المنتجات -->
+    <div class="card">
+      <div class="top-actions">
+        <h3 style="margin:0">📦 المنتجات الحالية <span class="badge-count" id="countBadge">0</span></h3>
+        <button class="btn outline small" id="seedBtn" onclick="seedDefaultProducts()">استيراد المنتجات الأساسية (أول مرة فقط)</button>
+      </div>
+      <div style="overflow-x:auto">
+        <table>
+          <thead>
+            <tr><th>الصورة</th><th>الاسم</th><th>الفئة</th><th>السعر</th><th>إجراءات</th></tr>
+          </thead>
+          <tbody id="productsTableBody"></tbody>
+        </table>
+      </div>
+      <div class="empty-msg" id="emptyMsg" style="display:none">لا توجد منتجات حتى الآن — أضف أول منتج من الأعلى، أو استخدم زر "استيراد المنتجات الأساسية".</div>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<!-- Firebase -->
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+<script src="firebase-config.js"></script>
+
+<script>
+let editingDocId = null;
+
+// المنتجات الأساسية الجاهزة (لملء قاعدة البيانات لأول مرة بضغطة واحدة)
+const DEFAULT_PRODUCTS = [
+  { id:1, category:'charging', badge:{type:'badge-hot', text:'الأكثر مبيعاً'}, icon:'⚡', image:'', brand:'PowerMax', rating:5, reviews:124, name:'كابل شحن سريع Type-2 — 22kW', desc:'كابل شحن احترافي متوافق مع جميع السيارات الكهربائية، طول 7 متر، مقاوم للماء IP67', price:1850, oldPrice:2200, order:1 },
+  { id:2, category:'camera', badge:{type:'badge-new', text:'جديد'}, icon:'📷', image:'', brand:'VisionTech', rating:5, reviews:87, name:'كاميرا داش كام 4K مع رؤية ليلية', desc:'كاميرا أمامية وخلفية بدقة 4K، تسجيل مستمر، GPS مدمج، تطبيق ذكي للمراقبة', price:2450, oldPrice:null, order:2 },
+  { id:3, category:'smart', badge:null, icon:'🖥️', image:'', brand:'SmartDrive', rating:4, reviews:56, name:'شاشة Android Auto/CarPlay 10 بوصة', desc:'شاشة تعمل باللمس، دعم Android Auto و Apple CarPlay، WiFi، BT 5.0، دقة FHD', price:3200, oldPrice:null, order:3 },
+  { id:4, category:'battery', badge:{type:'badge-sale', text:'خصم 20%'}, icon:'🔋', image:'', brand:'BatteryShield', rating:5, reviews:203, name:'غطاء حماية البطارية الحراري المتقدم', desc:'نظام عزل حراري مصنوع من مواد نانو، يحافظ على درجة حرارة البطارية المثالية طوال العام', price:920, oldPrice:1150, order:4 },
+  { id:5, category:'charging', badge:null, icon:'🔌', image:'', brand:'ChargeMax', rating:5, reviews:178, name:'محطة شحن منزلية 11kW — إصدار ذكي', desc:'محطة شحن للمنزل مع تحكم عبر التطبيق، جدولة الشحن، مراقبة الاستهلاك، ضمان 3 سنوات', price:5800, oldPrice:null, order:5 },
+  { id:6, category:'interior', badge:{type:'badge-new', text:'جديد'}, icon:'💺', image:'', brand:'LuxInterior', rating:4, reviews:41, name:'طقم إضاءة LED داخلية محيطية — RGB', desc:'16 مليون لون، تحكم صوتي وبالتطبيق، متزامن مع الموسيقى، تركيب سهل بدون لحام', price:380, oldPrice:null, order:6 }
+];
+
+function showToast(msg){
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(()=> t.classList.remove('show'), 2500);
+}
+
+// ---- تسجيل الدخول ----
+function doLogin(){
+  if(!window.firebaseAuth){
+    alert('لم يتم إعداد Firebase بعد. راجع "دليل النشر والتشغيل.md"');
+    return;
+  }
+  const email = document.getElementById('loginEmail').value.trim();
+  const password = document.getElementById('loginPassword').value;
+  window.firebaseAuth.signInWithEmailAndPassword(email, password)
+    .catch(() => {
+      document.getElementById('loginError').style.display = 'block';
+    });
+}
+
+function doLogout(){
+  window.firebaseAuth.signOut();
+}
+
+if (window.firebaseAuth) {
+  window.firebaseAuth.onAuthStateChanged((user) => {
+    if(user){
+      document.getElementById('loginScreen').style.display = 'none';
+      document.getElementById('dashboard').style.display = 'block';
+      listenProducts();
+    } else {
+      document.getElementById('loginScreen').style.display = 'flex';
+      document.getElementById('dashboard').style.display = 'none';
+    }
+  });
+}
+
+// ---- عرض المنتجات في الجدول (تحديث لحظي) ----
+function listenProducts(){
+  window.firebaseDB.collection('products').orderBy('order','asc').onSnapshot((snap) => {
+    const tbody = document.getElementById('productsTableBody');
+    const emptyMsg = document.getElementById('emptyMsg');
+    document.getElementById('countBadge').textContent = snap.size;
+    tbody.innerHTML = '';
+    if(snap.empty){
+      emptyMsg.style.display = 'block';
+      return;
+    }
+    emptyMsg.style.display = 'none';
+    snap.forEach(doc => {
+      const p = doc.data();
+      const imgCell = p.image
+        ? `<img src="${p.image}" alt="">`
+        : `<div class="fallback-icon">${p.icon || '⚡'}</div>`;
+      const catNames = {charging:'شحن', camera:'كاميرات', smart:'أنظمة ذكية', battery:'بطاريات', interior:'داخلية'};
+      tbody.innerHTML += `
+        <tr>
+          <td>${imgCell}</td>
+          <td>${p.name}<br><span style="color:var(--text-muted); font-size:12px;">${p.brand||''}</span></td>
+          <td>${catNames[p.category]||p.category}</td>
+          <td>${(p.price||0).toLocaleString('en-US')} ج.م</td>
+          <td class="row-actions">
+            <button class="btn small outline" onclick="editProduct('${doc.id}')">تعديل</button>
+            <button class="btn small danger" onclick="deleteProduct('${doc.id}')">حذف</button>
+          </td>
+        </tr>`;
+    });
+  });
+}
+
+// ---- حفظ منتج (إضافة أو تعديل) ----
+function saveProduct(){
+  const name = document.getElementById('f_name').value.trim();
+  const brand = document.getElementById('f_brand').value.trim();
+  const desc = document.getElementById('f_desc').value.trim();
+  const price = parseFloat(document.getElementById('f_price').value);
+  const msg = document.getElementById('formMsg');
+
+  if(!name || !brand || !desc || isNaN(price)){
+    msg.textContent = '⚠️ من فضلك أكمل الحقول المطلوبة (الاسم، البراند، الوصف، السعر)';
+    msg.className = 'err';
+    msg.style.display = 'block';
+    return;
+  }
+
+  const badgeType = document.getElementById('f_badgeType').value;
+  const badgeTextMap = {'badge-hot':'الأكثر مبيعاً','badge-new':'جديد','badge-sale':'خصم'};
+
+  const data = {
+    id: editingDocId ? undefined : Date.now(),
+    category: document.getElementById('f_category').value,
+    badge: badgeType ? { type: badgeType, text: badgeTextMap[badgeType] } : null,
+    icon: document.getElementById('f_icon').value.trim() || '⚡',
+    image: document.getElementById('f_image').value.trim(),
+    brand: brand,
+    rating: parseInt(document.getElementById('f_rating').value) || 5,
+    reviews: parseInt(document.getElementById('f_reviews').value) || 0,
+    name: name,
+    desc: desc,
+    price: price,
+    oldPrice: document.getElementById('f_oldPrice').value ? parseFloat(document.getElementById('f_oldPrice').value) : null,
+    order: Date.now()
+  };
+  if(data.id === undefined) delete data.id;
+
+  const col = window.firebaseDB.collection('products');
+  const promise = editingDocId ? col.doc(editingDocId).update(data) : col.add(data);
+
+  promise.then(() => {
+    msg.textContent = '✅ تم الحفظ بنجاح';
+    msg.className = 'ok';
+    msg.style.display = 'block';
+    showToast('✅ تم حفظ المنتج');
+    resetForm();
+  }).catch(err => {
+    msg.textContent = '❌ حصل خطأ: ' + err.message;
+    msg.className = 'err';
+    msg.style.display = 'block';
+  });
+}
+
+function editProduct(docId){
+  window.firebaseDB.collection('products').doc(docId).get().then(doc => {
+    const p = doc.data();
+    editingDocId = docId;
+    document.getElementById('f_name').value = p.name || '';
+    document.getElementById('f_brand').value = p.brand || '';
+    document.getElementById('f_category').value = p.category || 'charging';
+    document.getElementById('f_badgeType').value = p.badge ? p.badge.type : '';
+    document.getElementById('f_price').value = p.price || '';
+    document.getElementById('f_oldPrice').value = p.oldPrice || '';
+    document.getElementById('f_rating').value = p.rating || 5;
+    document.getElementById('f_reviews').value = p.reviews || 0;
+    document.getElementById('f_desc').value = p.desc || '';
+    document.getElementById('f_image').value = p.image || '';
+    document.getElementById('f_icon').value = p.icon || '⚡';
+    document.getElementById('formTitle').textContent = '✏️ تعديل منتج: ' + p.name;
+    document.getElementById('cancelEditBtn').style.display = 'inline-block';
+    window.scrollTo(0,0);
+  });
+}
+
+function deleteProduct(docId){
+  if(!confirm('هل أنت متأكد من حذف هذا المنتج؟')) return;
+  window.firebaseDB.collection('products').doc(docId).delete().then(() => {
+    showToast('🗑️ تم حذف المنتج');
+  });
+}
+
+function resetForm(){
+  editingDocId = null;
+  ['f_name','f_brand','f_price','f_oldPrice','f_desc','f_image'].forEach(id => document.getElementById(id).value = '');
+  document.getElementById('f_icon').value = '⚡';
+  document.getElementById('f_rating').value = 5;
+  document.getElementById('f_reviews').value = 0;
+  document.getElementById('f_category').value = 'charging';
+  document.getElementById('f_badgeType').value = '';
+  document.getElementById('formTitle').textContent = '➕ إضافة منتج جديد';
+  document.getElementById('cancelEditBtn').style.display = 'none';
+}
+
+// ---- استيراد المنتجات الأساسية (أول مرة فقط) ----
+function seedDefaultProducts(){
+  if(!confirm('سيتم إضافة 6 منتجات تجريبية إلى المتجر. تابع؟')) return;
+  const col = window.firebaseDB.collection('products');
+  const batchPromises = DEFAULT_PRODUCTS.map(p => col.add(p));
+  Promise.all(batchPromises).then(() => showToast('✅ تم استيراد المنتجات الأساسية'));
+}
+</script>
+</body>
+</html>
