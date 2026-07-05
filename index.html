@@ -1480,10 +1480,11 @@
       border-radius: 4px;
       width: 100%;
       max-width: 800px;
+      max-height: 90vh;
+      overflow-y: auto;
       position: relative;
       transform: translateY(20px) scale(0.95);
       transition: transform 0.3s ease;
-      overflow: hidden;
       box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
     }
 
@@ -1578,6 +1579,8 @@
       .modal-grid { grid-template-columns: 1fr; }
       .modal-img-col { padding: 30px; font-size: 70px; border-left: none; border-bottom: 1px solid var(--border); }
       .modal-info-col { padding: 24px; }
+      .modal-price-wrap { flex-wrap: wrap; gap: 12px; }
+      .modal-price-wrap .btn-primary { width: 100%; text-align: center; }
     }
 
     .footer-grid {
@@ -2902,6 +2905,12 @@
            </div>`
         : '';
 
+      // بناء المميزات الإضافية: من بيانات المنتج لو موجودة، وإلا نص افتراضي عام
+      const featuresList = (Array.isArray(product.features) && product.features.length)
+        ? product.features
+        : ['شحن سريع وآمن متوافق مع أعلى المعايير.', 'ضمان استبدال ضد عيوب الصناعة.', 'دعم فني متوفر للتركيب والاستفسارات.'];
+      const featuresHtml = featuresList.map(f => `- ${f}<br>`).join('');
+
       // بناء تفاصيل النافذة
       modalBody.innerHTML = `
         <div class="modal-grid">
@@ -2915,9 +2924,7 @@
             <div class="modal-desc">
               ${product.desc}<br><br>
               <strong>مميزات إضافية:</strong><br>
-              - شحن سريع وآمن متوافق مع أعلى المعايير.<br>
-              - ضمان استبدال ضد عيوب الصناعة.<br>
-              - دعم فني متوفر للتركيب والاستفسارات.
+              ${featuresHtml}
             </div>
             <div class="modal-price-wrap">
               <div class="modal-price"><span>ج.م</span>${product.price.toLocaleString('en-US')}</div>

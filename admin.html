@@ -164,6 +164,14 @@
         <textarea id="f_desc" rows="2" placeholder="وصف قصير للمنتج"></textarea>
       </div>
 
+      <div class="field">
+        <label>المميزات الإضافية (تظهر في نافذة العرض السريع) — ميزة واحدة في كل سطر</label>
+        <textarea id="f_features" rows="3" placeholder="ضمان استبدال لمدة سنة
+مقاوم للماء والغبار
+شحنة سريعة خلال 24-48 ساعة"></textarea>
+        <span class="hint" style="margin-top:6px;">لو سيبت الحقل فاضي، هيظهر نص عام افتراضي بدل منه.</span>
+      </div>
+
       <div class="grid2">
         <div class="field">
           <label>روابط صور المنتج (اختياري) — رابط واحد في كل سطر</label>
@@ -352,6 +360,8 @@ function saveProduct(){
   const badgeTextMap = {'badge-hot':'الأكثر مبيعاً','badge-new':'جديد','badge-sale':'خصم'};
   const imagesArr = document.getElementById('f_images').value
     .split('\n').map(s => s.trim()).filter(Boolean);
+  const featuresArr = document.getElementById('f_features').value
+    .split('\n').map(s => s.trim()).filter(Boolean);
 
   const data = {
     id: editingDocId ? undefined : Date.now(),
@@ -359,6 +369,7 @@ function saveProduct(){
     badge: badgeType ? { type: badgeType, text: badgeTextMap[badgeType] } : null,
     icon: document.getElementById('f_icon').value.trim() || '⚡',
     images: imagesArr,
+    features: featuresArr,
     brand: brand,
     rating: parseInt(document.getElementById('f_rating').value) || 5,
     reviews: parseInt(document.getElementById('f_reviews').value) || 0,
@@ -401,6 +412,7 @@ function editProduct(docId){
     document.getElementById('f_desc').value = p.desc || '';
     const imgs = Array.isArray(p.images) && p.images.length ? p.images : (p.image ? [p.image] : []);
     document.getElementById('f_images').value = imgs.join('\n');
+    document.getElementById('f_features').value = (Array.isArray(p.features) ? p.features : []).join('\n');
     document.getElementById('f_icon').value = p.icon || '⚡';
     document.getElementById('formTitle').textContent = '✏️ تعديل منتج: ' + p.name;
     document.getElementById('cancelEditBtn').style.display = 'inline-block';
@@ -417,7 +429,7 @@ function deleteProduct(docId){
 
 function resetForm(){
   editingDocId = null;
-  ['f_name','f_brand','f_price','f_oldPrice','f_desc','f_images'].forEach(id => document.getElementById(id).value = '');
+  ['f_name','f_brand','f_price','f_oldPrice','f_desc','f_images','f_features'].forEach(id => document.getElementById(id).value = '');
   document.getElementById('f_icon').value = '⚡';
   document.getElementById('f_rating').value = 5;
   document.getElementById('f_reviews').value = 0;
