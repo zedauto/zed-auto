@@ -81,6 +81,36 @@
       <button class="btn outline small" onclick="doLogout()">تسجيل الخروج</button>
     </header>
 
+    <!-- سجل الطلبات -->
+    <div class="card">
+      <div class="top-actions">
+        <h3 style="margin:0">📋 سجل الطلبات <span class="badge-count" id="ordersCountBadge">0</span></h3>
+      </div>
+      <div style="overflow-x:auto">
+        <table>
+          <thead>
+            <tr><th>التاريخ</th><th>العميل</th><th>الهاتف</th><th>المحافظة</th><th>الإجمالي</th><th>الدفع</th></tr>
+          </thead>
+          <tbody id="ordersTableBody"></tbody>
+        </table>
+      </div>
+      <div class="empty-msg" id="ordersEmptyMsg" style="display:none">لسه معندكش أي طلبات مسجّلة.</div>
+    </div>
+
+    <!-- المشتركين في النشرة البريدية -->
+    <div class="card">
+      <div class="top-actions">
+        <h3 style="margin:0">✉️ المشتركين في النشرة البريدية <span class="badge-count" id="subsCountBadge">0</span></h3>
+      </div>
+      <div style="overflow-x:auto">
+        <table>
+          <thead><tr><th>الإيميل</th><th>تاريخ الاشتراك</th></tr></thead>
+          <tbody id="subsTableBody"></tbody>
+        </table>
+      </div>
+      <div class="empty-msg" id="subsEmptyMsg" style="display:none">لسه معندكش مشتركين.</div>
+    </div>
+
     <!-- إعدادات المتجر العامة -->
     <div class="card">
       <h3>⚙️ إعدادات التواصل العامة</h3>
@@ -142,20 +172,19 @@
           </select>
         </div>
         <div class="field">
+          <label>حالة التوفر</label>
+          <select id="f_available">
+            <option value="true">متوفر</option>
+            <option value="false">غير متوفر حاليًا</option>
+          </select>
+        </div>
+        <div class="field">
           <label>السعر (ج.م) *</label>
           <input id="f_price" type="number" placeholder="1850">
         </div>
         <div class="field">
           <label>السعر قبل الخصم (اختياري)</label>
           <input id="f_oldPrice" type="number" placeholder="2200">
-        </div>
-        <div class="field">
-          <label>التقييم (من 1 إلى 5)</label>
-          <input id="f_rating" type="number" min="1" max="5" value="5">
-        </div>
-        <div class="field">
-          <label>عدد التقييمات</label>
-          <input id="f_reviews" type="number" value="0">
         </div>
       </div>
 
@@ -226,12 +255,12 @@ let editingDocId = null;
 
 // المنتجات الأساسية الجاهزة (لملء قاعدة البيانات لأول مرة بضغطة واحدة)
 const DEFAULT_PRODUCTS = [
-  { id:1, category:'charging', badge:{type:'badge-hot', text:'الأكثر مبيعاً'}, icon:'⚡', images:[], brand:'PowerMax', rating:5, reviews:124, name:'كابل شحن سريع Type-2 — 22kW', desc:'كابل شحن احترافي متوافق مع جميع السيارات الكهربائية، طول 7 متر، مقاوم للماء IP67', price:1850, oldPrice:2200, order:1 },
-  { id:2, category:'camera', badge:{type:'badge-new', text:'جديد'}, icon:'📷', images:[], brand:'VisionTech', rating:5, reviews:87, name:'كاميرا داش كام 4K مع رؤية ليلية', desc:'كاميرا أمامية وخلفية بدقة 4K، تسجيل مستمر، GPS مدمج، تطبيق ذكي للمراقبة', price:2450, oldPrice:null, order:2 },
-  { id:3, category:'smart', badge:null, icon:'🖥️', images:[], brand:'SmartDrive', rating:4, reviews:56, name:'شاشة Android Auto/CarPlay 10 بوصة', desc:'شاشة تعمل باللمس، دعم Android Auto و Apple CarPlay، WiFi، BT 5.0، دقة FHD', price:3200, oldPrice:null, order:3 },
-  { id:4, category:'battery', badge:{type:'badge-sale', text:'خصم 20%'}, icon:'🔋', images:[], brand:'BatteryShield', rating:5, reviews:203, name:'غطاء حماية البطارية الحراري المتقدم', desc:'نظام عزل حراري مصنوع من مواد نانو، يحافظ على درجة حرارة البطارية المثالية طوال العام', price:920, oldPrice:1150, order:4 },
-  { id:5, category:'charging', badge:null, icon:'🔌', images:[], brand:'ChargeMax', rating:5, reviews:178, name:'محطة شحن منزلية 11kW — إصدار ذكي', desc:'محطة شحن للمنزل مع تحكم عبر التطبيق، جدولة الشحن، مراقبة الاستهلاك، ضمان 3 سنوات', price:5800, oldPrice:null, order:5 },
-  { id:6, category:'interior', badge:{type:'badge-new', text:'جديد'}, icon:'💺', images:[], brand:'LuxInterior', rating:4, reviews:41, name:'طقم إضاءة LED داخلية محيطية — RGB', desc:'16 مليون لون، تحكم صوتي وبالتطبيق، متزامن مع الموسيقى، تركيب سهل بدون لحام', price:380, oldPrice:null, order:6 }
+  { id:1, category:'charging', badge:{type:'badge-hot', text:'الأكثر مبيعاً'}, icon:'⚡', images:[], brand:'PowerMax', name:'كابل شحن سريع Type-2 — 22kW', desc:'كابل شحن احترافي متوافق مع جميع السيارات الكهربائية، طول 7 متر، مقاوم للماء IP67', price:1850, oldPrice:2200, order:1 },
+  { id:2, category:'camera', badge:{type:'badge-new', text:'جديد'}, icon:'📷', images:[], brand:'VisionTech', name:'كاميرا داش كام 4K مع رؤية ليلية', desc:'كاميرا أمامية وخلفية بدقة 4K، تسجيل مستمر، GPS مدمج، تطبيق ذكي للمراقبة', price:2450, oldPrice:null, order:2 },
+  { id:3, category:'smart', badge:null, icon:'🖥️', images:[], brand:'SmartDrive', name:'شاشة Android Auto/CarPlay 10 بوصة', desc:'شاشة تعمل باللمس، دعم Android Auto و Apple CarPlay، WiFi، BT 5.0، دقة FHD', price:3200, oldPrice:null, order:3 },
+  { id:4, category:'battery', badge:{type:'badge-sale', text:'خصم 20%'}, icon:'🔋', images:[], brand:'BatteryShield', name:'غطاء حماية البطارية الحراري المتقدم', desc:'نظام عزل حراري مصنوع من مواد نانو، يحافظ على درجة حرارة البطارية المثالية طوال العام', price:920, oldPrice:1150, order:4 },
+  { id:5, category:'charging', badge:null, icon:'🔌', images:[], brand:'ChargeMax', name:'محطة شحن منزلية 11kW — إصدار ذكي', desc:'محطة شحن للمنزل مع تحكم عبر التطبيق، جدولة الشحن، مراقبة الاستهلاك، ضمان 3 سنوات', price:5800, oldPrice:null, order:5 },
+  { id:6, category:'interior', badge:{type:'badge-new', text:'جديد'}, icon:'💺', images:[], brand:'LuxInterior', name:'طقم إضاءة LED داخلية محيطية — RGB', desc:'16 مليون لون، تحكم صوتي وبالتطبيق، متزامن مع الموسيقى، تركيب سهل بدون لحام', price:380, oldPrice:null, order:6 }
 ];
 
 function showToast(msg){
@@ -266,11 +295,55 @@ if (window.firebaseAuth) {
       document.getElementById('dashboard').style.display = 'block';
       listenProducts();
       loadSettings();
+      listenOrders();
+      listenSubscribers();
     } else {
       document.getElementById('loginScreen').style.display = 'flex';
       document.getElementById('dashboard').style.display = 'none';
     }
   });
+}
+
+// ---- سجل الطلبات ----
+function listenOrders(){
+  window.firebaseDB.collection('orders').orderBy('createdAt','desc').limit(100).onSnapshot((snap) => {
+    const tbody = document.getElementById('ordersTableBody');
+    const emptyMsg = document.getElementById('ordersEmptyMsg');
+    document.getElementById('ordersCountBadge').textContent = snap.size;
+    tbody.innerHTML = '';
+    if(snap.empty){ emptyMsg.style.display = 'block'; return; }
+    emptyMsg.style.display = 'none';
+    snap.forEach(doc => {
+      const o = doc.data();
+      const date = o.createdAt ? new Date(o.createdAt).toLocaleString('ar-EG') : '-';
+      tbody.innerHTML += `
+        <tr>
+          <td>${date}</td>
+          <td>${o.name || '-'}</td>
+          <td dir="ltr">${o.phone || '-'}</td>
+          <td>${o.city || '-'}</td>
+          <td>${(o.total||0).toLocaleString('en-US')} ج.م</td>
+          <td>${o.paymentMethod || '-'}</td>
+        </tr>`;
+    });
+  }, (err) => console.error('تعذر تحميل الطلبات (تأكد من تحديث Firestore Rules):', err));
+}
+
+// ---- المشتركين في النشرة البريدية ----
+function listenSubscribers(){
+  window.firebaseDB.collection('newsletter_subscribers').orderBy('subscribedAt','desc').limit(200).onSnapshot((snap) => {
+    const tbody = document.getElementById('subsTableBody');
+    const emptyMsg = document.getElementById('subsEmptyMsg');
+    document.getElementById('subsCountBadge').textContent = snap.size;
+    tbody.innerHTML = '';
+    if(snap.empty){ emptyMsg.style.display = 'block'; return; }
+    emptyMsg.style.display = 'none';
+    snap.forEach(doc => {
+      const s = doc.data();
+      const date = s.subscribedAt ? new Date(s.subscribedAt).toLocaleString('ar-EG') : '-';
+      tbody.innerHTML += `<tr><td dir="ltr">${s.email || '-'}</td><td>${date}</td></tr>`;
+    });
+  }, (err) => console.error('تعذر تحميل المشتركين (تأكد من تحديث Firestore Rules):', err));
 }
 
 // ---- إعدادات المتجر العامة ----
@@ -371,8 +444,7 @@ function saveProduct(){
     images: imagesArr,
     features: featuresArr,
     brand: brand,
-    rating: parseInt(document.getElementById('f_rating').value) || 5,
-    reviews: parseInt(document.getElementById('f_reviews').value) || 0,
+    available: document.getElementById('f_available').value === 'true',
     name: name,
     desc: desc,
     price: price,
@@ -407,8 +479,7 @@ function editProduct(docId){
     document.getElementById('f_badgeType').value = p.badge ? p.badge.type : '';
     document.getElementById('f_price').value = p.price || '';
     document.getElementById('f_oldPrice').value = p.oldPrice || '';
-    document.getElementById('f_rating').value = p.rating || 5;
-    document.getElementById('f_reviews').value = p.reviews || 0;
+    document.getElementById('f_available').value = (p.available === false) ? 'false' : 'true';
     document.getElementById('f_desc').value = p.desc || '';
     const imgs = Array.isArray(p.images) && p.images.length ? p.images : (p.image ? [p.image] : []);
     document.getElementById('f_images').value = imgs.join('\n');
@@ -431,8 +502,7 @@ function resetForm(){
   editingDocId = null;
   ['f_name','f_brand','f_price','f_oldPrice','f_desc','f_images','f_features'].forEach(id => document.getElementById(id).value = '');
   document.getElementById('f_icon').value = '⚡';
-  document.getElementById('f_rating').value = 5;
-  document.getElementById('f_reviews').value = 0;
+  document.getElementById('f_available').value = 'true';
   document.getElementById('f_category').value = 'charging';
   document.getElementById('f_badgeType').value = '';
   document.getElementById('formTitle').textContent = '➕ إضافة منتج جديد';
