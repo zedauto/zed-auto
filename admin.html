@@ -143,9 +143,48 @@
           <label>أسماء العلامات التجارية (افصل بينهم بفاصلة) — سيب الحقل فاضي لإخفاء القسم بالكامل</label>
           <input id="s_brands" placeholder="مثال: ABB, SIEMENS, HUAWEI">
         </div>
+        <div class="field">
+          <label>رابط صفحة فيسبوك (اختياري)</label>
+          <input id="s_facebook" placeholder="https://facebook.com/...">
+        </div>
+        <div class="field">
+          <label>رابط انستغرام (اختياري)</label>
+          <input id="s_instagram" placeholder="https://instagram.com/...">
+        </div>
+        <div class="field">
+          <label>رابط تيكتوك (اختياري)</label>
+          <input id="s_tiktok" placeholder="https://tiktok.com/@...">
+        </div>
+        <div class="field">
+          <label>رابط يوتيوب (اختياري)</label>
+          <input id="s_youtube" placeholder="https://youtube.com/@...">
+        </div>
       </div>
       <button class="btn" onclick="saveSettings()">💾 حفظ الإعدادات</button>
       <div id="settingsMsg" style="font-size:13px; margin-top:10px; display:none;"></div>
+    </div>
+
+    <!-- إدارة الأقسام -->
+    <div class="card">
+      <h3>🗂️ إدارة الأقسام</h3>
+      <div class="grid2">
+        <div class="field">
+          <label>اسم القسم الجديد</label>
+          <input id="newCatName" placeholder="مثال: إضاءة خارجية">
+        </div>
+        <div class="field">
+          <label>تصنيف علوي مختصر (اختياري، زي "جديد" أو "الأكثر مبيعًا")</label>
+          <input id="newCatTag" placeholder="اختياري">
+        </div>
+      </div>
+      <button class="btn" onclick="addCategory()">➕ إضافة القسم</button>
+      <div style="margin-top:20px; overflow-x:auto">
+        <table>
+          <thead><tr><th>اسم القسم</th><th>التصنيف العلوي</th><th>إجراءات</th></tr></thead>
+          <tbody id="categoriesTableBody"></tbody>
+        </table>
+      </div>
+      <div class="empty-msg" id="categoriesEmptyMsg" style="display:none">لسه معندكش أي أقسام.</div>
     </div>
 
     <!-- نموذج إضافة / تعديل منتج -->
@@ -162,13 +201,7 @@
         </div>
         <div class="field">
           <label>الفئة *</label>
-          <select id="f_category">
-            <option value="charging">شحن</option>
-            <option value="camera">كاميرات</option>
-            <option value="smart">أنظمة ذكية</option>
-            <option value="battery">بطاريات</option>
-            <option value="interior">إكسسوارات داخلية</option>
-          </select>
+          <select id="f_category"></select>
         </div>
         <div class="field">
           <label>الشارة (Badge)</label>
@@ -305,6 +338,7 @@ if (window.firebaseAuth) {
       loadSettings();
       listenOrders();
       listenSubscribers();
+      listenCategories();
     } else {
       document.getElementById('loginScreen').style.display = 'flex';
       document.getElementById('dashboard').style.display = 'none';
@@ -354,6 +388,74 @@ function listenSubscribers(){
   }, (err) => console.error('تعذر تحميل المشتركين (تأكد من تحديث Firestore Rules):', err));
 }
 
+// ---- إدارة الأقسام ----
+const DEFAULT_CATEGORIES = [
+  { slug: 'charging', name: 'كابلات ومحطات الشحن', tag: 'الأكثر مبيعاً', order: 1 },
+  { slug: 'camera', name: 'أنظمة المراقبة والكاميرات', tag: 'جديد', order: 2 },
+  { slug: 'battery', name: 'حماية البطارية والأجزاء', tag: 'حماية', order: 3 },
+  { slug: 'smart', name: 'شاشات وأنظمة ذكية', tag: 'تقنية', order: 4 },
+  { slug: 'interior', name: 'ديكور وتخصيص الداخلية', tag: 'تصميم', order: 5 },
+];
+
+function listenCategories(){
+  window.firebaseDB.collection('categories').orderBy('order','asc').get().then(snap => {
+    // أول مرة بس: لو مفيش أي أقسام محفوظة، نعمّر الأقسام الافتراضية تلقائيًا
+    if (snap.empty) {
+      const batch = DEFAULT_CATEGORIES.map(c =>
+        window.firebaseDB.collection('categories').doc(c.slug).set({ name: c.name, tag: c.tag, order: c.order })
+      );
+      Promise.all(batch).catch(err => console.error('تعذر تعمير الأقسام الافتراضية:', err));
+    }
+  });
+
+  window.firebaseDB.collection('categories').orderBy('order','asc').onSnapshot((snap) => {
+    const tbody = document.getElementById('categoriesTableBody');
+    const emptyMsg = document.getElementById('categoriesEmptyMsg');
+    const select = document.getElementById('f_category');
+    tbody.innerHTML = '';
+    select.innerHTML = '';
+
+    if (snap.empty) { emptyMsg.style.display = 'block'; return; }
+    emptyMsg.style.display = 'none';
+
+    snap.forEach(doc => {
+      const c = doc.data();
+      tbody.innerHTML += `
+        <tr>
+          <td>${c.name}</td>
+          <td>${c.tag || '-'}</td>
+          <td><button class="btn small danger" onclick="deleteCategory('${doc.id}')">حذف</button></td>
+        </tr>`;
+      const opt = document.createElement('option');
+      opt.value = doc.id;
+      opt.textContent = c.name;
+      select.appendChild(opt);
+    });
+  }, (err) => console.error('تعذر تحميل الأقسام:', err));
+}
+
+function addCategory(){
+  const name = document.getElementById('newCatName').value.trim();
+  const tag = document.getElementById('newCatTag').value.trim();
+  if(!name){ alert('اكتب اسم القسم أولاً'); return; }
+
+  const slug = 'cat_' + Date.now();
+  window.firebaseDB.collection('categories').doc(slug).set({
+    name, tag, order: Date.now()
+  }).then(() => {
+    document.getElementById('newCatName').value = '';
+    document.getElementById('newCatTag').value = '';
+    showToast('✅ تم إضافة القسم');
+  }).catch(err => alert('❌ حصل خطأ: ' + err.message));
+}
+
+function deleteCategory(slug){
+  if(!confirm('حذف القسم ده؟ لو فيه منتجات مرتبطة بيه، هتفضل موجودة بس من غير قسم ظاهر ليها. تقدر تعدّل قسمها من نموذج المنتج بعد كده.')) return;
+  window.firebaseDB.collection('categories').doc(slug).delete().then(() => {
+    showToast('🗑️ تم حذف القسم');
+  });
+}
+
 // ---- إعدادات المتجر العامة ----
 function loadSettings(){
   window.firebaseDB.collection('settings').doc('general').get().then(doc => {
@@ -366,6 +468,10 @@ function loadSettings(){
     if(s.hours) document.getElementById('s_hours').value = s.hours;
     if(s.brandsTitle) document.getElementById('s_brandsTitle').value = s.brandsTitle;
     if(s.brands) document.getElementById('s_brands').value = s.brands;
+    if(s.facebook) document.getElementById('s_facebook').value = s.facebook;
+    if(s.instagram) document.getElementById('s_instagram').value = s.instagram;
+    if(s.tiktok) document.getElementById('s_tiktok').value = s.tiktok;
+    if(s.youtube) document.getElementById('s_youtube').value = s.youtube;
   });
 }
 
@@ -377,7 +483,11 @@ function saveSettings(){
     email: document.getElementById('s_email').value.trim(),
     hours: document.getElementById('s_hours').value.trim(),
     brandsTitle: document.getElementById('s_brandsTitle').value.trim(),
-    brands: document.getElementById('s_brands').value.trim()
+    brands: document.getElementById('s_brands').value.trim(),
+    facebook: document.getElementById('s_facebook').value.trim(),
+    instagram: document.getElementById('s_instagram').value.trim(),
+    tiktok: document.getElementById('s_tiktok').value.trim(),
+    youtube: document.getElementById('s_youtube').value.trim()
   };
   const msg = document.getElementById('settingsMsg');
   window.firebaseDB.collection('settings').doc('general').set(data, { merge: true }).then(() => {

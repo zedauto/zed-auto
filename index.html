@@ -2144,62 +2144,8 @@
       <h2 class="section-title">اكتشف <span>كل ما تحتاجه</span></h2>
       <p class="section-desc">تشكيلة متكاملة من اكسسوارات السيارات مصنفة بعناية لتسهيل تجربة تسوقك</p>
     </div>
-    <div class="categories-grid">
-      <div class="cat-card" onclick="goToCategory('charging')" style="cursor:pointer;">
-        <div class="cat-bg"></div>
-        <div class="cat-border"></div>
-        <div class="cat-icon-wrap"><svg viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 2v5M15 2v5M7 7h10v4a5 5 0 0 1-10 0V7z"/><path d="M12 16v6"/></svg></div>
-        <div class="cat-content">
-          <span class="cat-tag">الأكثر مبيعاً</span>
-          <div class="cat-name">كابلات ومحطات الشحن</div>
-          <div class="cat-count" id="catCount-charging">جارٍ الحساب...</div>
-        </div>
-        <div class="cat-arrow">↗</div>
-      </div>
-      <div class="cat-card" onclick="goToCategory('camera')" style="cursor:pointer;">
-        <div class="cat-bg"></div>
-        <div class="cat-border"></div>
-        <div class="cat-icon-wrap"><svg viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg></div>
-        <div class="cat-content">
-          <span class="cat-tag">جديد</span>
-          <div class="cat-name">أنظمة المراقبة والكاميرات</div>
-          <div class="cat-count" id="catCount-camera">جارٍ الحساب...</div>
-        </div>
-        <div class="cat-arrow">↗</div>
-      </div>
-      <div class="cat-card" onclick="goToCategory('battery')" style="cursor:pointer;">
-        <div class="cat-bg"></div>
-        <div class="cat-border"></div>
-        <div class="cat-icon-wrap"><svg viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l8 4v6c0 5-3.5 8.5-8 10-4.5-1.5-8-5-8-10V6l8-4z"/></svg></div>
-        <div class="cat-content">
-          <span class="cat-tag">حماية</span>
-          <div class="cat-name">حماية البطارية والأجزاء</div>
-          <div class="cat-count" id="catCount-battery">جارٍ الحساب...</div>
-        </div>
-        <div class="cat-arrow">↗</div>
-      </div>
-      <div class="cat-card" onclick="goToCategory('smart')" style="cursor:pointer;">
-        <div class="cat-bg"></div>
-        <div class="cat-border"></div>
-        <div class="cat-icon-wrap"><svg viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></div>
-        <div class="cat-content">
-          <span class="cat-tag">تقنية</span>
-          <div class="cat-name">شاشات وأنظمة ذكية</div>
-          <div class="cat-count" id="catCount-smart">جارٍ الحساب...</div>
-        </div>
-        <div class="cat-arrow">↗</div>
-      </div>
-      <div class="cat-card" onclick="goToCategory('interior')" style="cursor:pointer;">
-        <div class="cat-bg"></div>
-        <div class="cat-border"></div>
-        <div class="cat-icon-wrap"><svg viewBox="0 0 24 24" width="1em" height="1em" fill="currentColor"><path d="M12 2l1.5 6.5L20 10l-6.5 1.5L12 18l-1.5-6.5L4 10l6.5-1.5L12 2z"/></svg></div>
-        <div class="cat-content">
-          <span class="cat-tag">تصميم</span>
-          <div class="cat-name">ديكور وتخصيص الداخلية</div>
-          <div class="cat-count" id="catCount-interior">جارٍ الحساب...</div>
-        </div>
-        <div class="cat-arrow">↗</div>
-      </div>
+    <div class="categories-grid" id="categoriesGrid">
+      <!-- الفئات هتتحمل هنا تلقائيًا من لوحة التحكم -->
     </div>
   </section>
 
@@ -2212,13 +2158,8 @@
     </div>
     <div style="display: flex; gap: 16px; margin-bottom: 48px; flex-wrap: wrap; align-items: center; justify-content: space-between;">
       
-      <div class="products-filter" style="margin-bottom: 0;">
+      <div class="products-filter" id="filterButtonsRow" style="margin-bottom: 0;">
         <button class="filter-btn active" onclick="filterProducts(this,'all')">الكل</button>
-        <button class="filter-btn" onclick="filterProducts(this,'charging')">شحن</button>
-        <button class="filter-btn" onclick="filterProducts(this,'camera')">كاميرات</button>
-        <button class="filter-btn" onclick="filterProducts(this,'interior')">داخلية</button>
-        <button class="filter-btn" onclick="filterProducts(this,'battery')">بطارية</button>
-        <button class="filter-btn" onclick="filterProducts(this,'smart')">ذكي</button>
       </div>
       
       <!-- شريط البحث الجديد -->
@@ -2395,10 +2336,10 @@
         <p>وجهتك لاكسسوارات وتقنيات السيارات في مصر. نوفر منتجات أصلية بجودة عالية بأسعار
           تنافسية مع خدمة عملاء احترافية.</p>
         <div class="footer-social">
-          <a href="#" class="social-btn" title="فيسبوك">f</a>
-          <a href="#" class="social-btn" title="انستغرام">📸</a>
-          <a href="#" class="social-btn" title="تيكتوك">▶</a>
-          <a href="#" class="social-btn" title="يوتيوب">▷</a>
+          <a href="#" id="socialFacebook" class="social-btn" title="فيسبوك" target="_blank" style="display:none;"><svg viewBox="0 0 24 24" width="1em" height="1em" fill="currentColor"><path d="M13.5 21v-8h2.7l.4-3.1h-3.1V8c0-.9.25-1.5 1.55-1.5h1.65V3.7C15.9 3.6 15 3.5 13.9 3.5c-2.4 0-4 1.45-4 4.1v2.3H7.2V13h2.7v8h3.6z"/></svg></a>
+          <a href="#" id="socialInstagram" class="social-btn" title="انستغرام" target="_blank" style="display:none;"><svg viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1"/></svg></a>
+          <a href="#" id="socialTiktok" class="social-btn" title="تيكتوك" target="_blank" style="display:none;"><svg viewBox="0 0 24 24" width="1em" height="1em" fill="currentColor"><path d="M16 3c.4 2.2 1.9 3.7 4 3.9V10c-1.4 0-2.8-.4-4-1.2V15a6 6 0 1 1-6-6c.3 0 .7 0 1 .1v3.2a2.8 2.8 0 1 0 2 2.7V3h3z"/></svg></a>
+          <a href="#" id="socialYoutube" class="social-btn" title="يوتيوب" target="_blank" style="display:none;"><svg viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="3"/><path d="M10 9l6 3-6 3z" fill="currentColor" stroke="none"/></svg></a>
           <a href="https://wa.me/201099117965" id="footerWhatsappBtn" class="social-btn" title="واتساب" target="_blank"><svg viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg></a>
         </div>
       </div>
@@ -2634,7 +2575,7 @@
     // عند الضغط على كارت فئة في قسم "اكتشف كل ما تحتاجه": ينزل لقسم المنتجات ويفلتر تلقائيًا على نفس الفئة
     function goToCategory(cat) {
       const targetBtn = Array.from(document.querySelectorAll('.filter-btn'))
-        .find(b => b.getAttribute('onclick')?.includes(`'${cat}'`));
+        .find(b => b.dataset.cat === cat);
       if (targetBtn) filterProducts(targetBtn, cat);
       document.getElementById('products').scrollIntoView({ behavior: 'smooth' });
     }
@@ -2845,12 +2786,7 @@
       });
 
       // تحديث عدادات الفئات بأعداد حقيقية من المنتجات الفعلية المتاحة
-      ['charging','camera','battery','smart','interior'].forEach(cat => {
-        const el = document.getElementById(`catCount-${cat}`);
-        if (!el) return;
-        const count = productsDB.filter(p => p.category === cat && p.available !== false).length;
-        el.textContent = count > 0 ? `${count} منتج متاح` : 'قريبًا';
-      });
+      updateCategoryCounts();
 
       document.querySelectorAll('.product-card').forEach(el => {
         el.style.opacity = '0';
@@ -2943,6 +2879,63 @@
       setTimeout(() => { toast.classList.remove('show'); }, 2800);
     }
 
+    // --- تحميل الأقسام الديناميكية من لوحة التحكم (أزرار الفلترة + كروت الفئات) ---
+    const DEFAULT_CAT_ICON = '<svg viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.6 12.1L12 3.5H3.5V12l8.6 8.6a2 2 0 0 0 2.8 0l5.7-5.7a2 2 0 0 0 0-2.8z"/><circle cx="7.5" cy="7.5" r="1.5"/></svg>';
+    let liveCategories = [];
+
+    function startLiveCategories() {
+      if (!window.firebaseDB) { renderCategoryFilters(); renderCategoryCards(); return; }
+      window.firebaseDB.collection('categories').orderBy('order', 'asc').onSnapshot((snap) => {
+        liveCategories = snap.docs.map(doc => ({ slug: doc.id, ...doc.data() }));
+        renderCategoryFilters();
+        renderCategoryCards();
+        updateCategoryCounts();
+      });
+    }
+
+    function renderCategoryFilters() {
+      const row = document.getElementById('filterButtonsRow');
+      if (!row) return;
+      const allBtn = row.querySelector('.filter-btn');
+      row.innerHTML = '';
+      row.appendChild(allBtn);
+      liveCategories.forEach(cat => {
+        const btn = document.createElement('button');
+        btn.className = 'filter-btn';
+        btn.textContent = cat.name;
+        btn.dataset.cat = cat.slug;
+        btn.onclick = () => filterProducts(btn, cat.slug);
+        row.appendChild(btn);
+      });
+    }
+
+    function renderCategoryCards() {
+      const grid = document.getElementById('categoriesGrid');
+      if (!grid) return;
+      grid.innerHTML = liveCategories.map(cat => `
+        <div class="cat-card" onclick="goToCategory('${cat.slug}')" style="cursor:pointer;">
+          <div class="cat-bg"></div>
+          <div class="cat-border"></div>
+          <div class="cat-icon-wrap">${cat.icon || DEFAULT_CAT_ICON}</div>
+          <div class="cat-content">
+            ${cat.tag ? `<span class="cat-tag">${cat.tag}</span>` : ''}
+            <div class="cat-name">${cat.name}</div>
+            <div class="cat-count" id="catCount-${cat.slug}">جارٍ الحساب...</div>
+          </div>
+          <div class="cat-arrow">↗</div>
+        </div>
+      `).join('');
+    }
+
+    function updateCategoryCounts() {
+      liveCategories.forEach(cat => {
+        const el = document.getElementById(`catCount-${cat.slug}`);
+        if (!el) return;
+        const count = productsDB.filter(p => p.category === cat.slug && p.available !== false).length;
+        el.textContent = count > 0 ? `${count} منتج متاح` : 'قريبًا';
+      });
+    }
+
     // استدعاء الدالة لتشغيلها بمجرد تحميل الصفحة
     // استدعاء الدوال لتشغيلها بمجرد تحميل الصفحة
     // --- جلب إعدادات المتجر العامة (رقم التواصل، العنوان، الإيميل، ساعات العمل) من لوحة التحكم ---
@@ -2973,12 +2966,22 @@
         } else {
           brandsSection.style.display = 'none';
         }
+
+        // روابط السوشيال ميديا: تظهر بس لو الرابط متوفر من لوحة التحكم
+        const socialMap = { socialFacebook: s.facebook, socialInstagram: s.instagram, socialTiktok: s.tiktok, socialYoutube: s.youtube };
+        Object.entries(socialMap).forEach(([id, url]) => {
+          const el = document.getElementById(id);
+          if (!el) return;
+          if (url && url.trim()) { el.href = url.trim(); el.style.display = ''; }
+          else { el.style.display = 'none'; }
+        });
       });
     }
 
     window.addEventListener('DOMContentLoaded', () => {
       startLiveProducts();
       startLiveSettings();
+      startLiveCategories();
       updateCartUI(); // هذا السطر سيجلب السلة المحفوظة ويعرضها فوراً
     });
 
