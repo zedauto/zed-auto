@@ -8,7 +8,7 @@
   <meta name="description" content="ZED AUTO — أفضل اكسسوارات وتقنيات السيارات في مصر: كابلات شحن، كاميرات، شاشات ذكية، وأنظمة حماية. شحن سريع وضمان أصالة.">
   <meta name="keywords" content="اكسسوارات سيارات, كابل شحن, كاميرا داش كام, شاشة اندرويد اوتو, مصر">
   <meta property="og:title" content="ZED AUTO — اكسسوارات وتقنيات السيارات">
-  <meta property="og:description" content="أكبر تشكيلة اكسسوارات وتقنيات السيارات في مصر والوطن العربي.">
+  <meta property="og:description" content="أفضل تشكيلة اكسسوارات وتقنيات السيارات في مصر.">
   <meta property="og:type" content="website">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 fill=%22%230a0908%22/><text x=%2250%22 y=%2270%22 font-size=%2260%22 text-anchor=%22middle%22 fill=%22%23c9a961%22>⚡</text></svg>">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -2004,14 +2004,14 @@
       <li><a href="#contact">تواصل معنا</a></li>
       <li>
           <a href="#" class="nav-cart" id="cartBtn" onclick="toggleCart(); return false;">
-            🛒 السلة
+            <svg viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg> السلة
             <span class="cart-count" id="cartCount">0</span>
           </a>
         </li>
       <li><a href="#products" class="nav-cta">تسوق الآن</a></li>
     </ul>
     <!-- زر قائمة الموبايل -->
-    <button class="mobile-menu-btn" onclick="toggleMobileMenu()">☰</button>
+    <button class="mobile-menu-btn" onclick="toggleMobileMenu()"><svg viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button>
   </nav>
   </nav>
 
@@ -2021,12 +2021,12 @@
       <span class="marquee-item">ضمان أصالة المنتج</span>
       <span class="marquee-item">أكسسوارات وتقنيات السيارات</span>
       <span class="marquee-item">شحن سريع لجميع المحافظات</span>
-      <span class="marquee-item">أكبر تشكيلة في مصر والوطن العربي</span>
+      <span class="marquee-item">تشكيلة مميزة من الاكسسوارات</span>
       <span class="marquee-item">دعم فني متخصص</span>
       <span class="marquee-item">ضمان أصالة المنتج</span>
       <span class="marquee-item">أكسسوارات وتقنيات السيارات</span>
       <span class="marquee-item">شحن سريع لجميع المحافظات</span>
-      <span class="marquee-item">أكبر تشكيلة في مصر والوطن العربي</span>
+      <span class="marquee-item">تشكيلة مميزة من الاكسسوارات</span>
       <span class="marquee-item">دعم فني متخصص</span>
     </div>
   </div>
@@ -2145,58 +2145,58 @@
       <p class="section-desc">تشكيلة متكاملة من اكسسوارات السيارات مصنفة بعناية لتسهيل تجربة تسوقك</p>
     </div>
     <div class="categories-grid">
-      <div class="cat-card">
+      <div class="cat-card" onclick="goToCategory('charging')" style="cursor:pointer;">
         <div class="cat-bg"></div>
         <div class="cat-border"></div>
-        <div class="cat-icon-wrap">⚡</div>
+        <div class="cat-icon-wrap"><svg viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 2v5M15 2v5M7 7h10v4a5 5 0 0 1-10 0V7z"/><path d="M12 16v6"/></svg></div>
         <div class="cat-content">
           <span class="cat-tag">الأكثر مبيعاً</span>
           <div class="cat-name">كابلات ومحطات الشحن</div>
-          <div class="cat-count">+85 منتج متاح</div>
+          <div class="cat-count" id="catCount-charging">جارٍ الحساب...</div>
         </div>
         <div class="cat-arrow">↗</div>
       </div>
-      <div class="cat-card">
+      <div class="cat-card" onclick="goToCategory('camera')" style="cursor:pointer;">
         <div class="cat-bg"></div>
         <div class="cat-border"></div>
-        <div class="cat-icon-wrap">📡</div>
+        <div class="cat-icon-wrap"><svg viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg></div>
         <div class="cat-content">
           <span class="cat-tag">جديد</span>
           <div class="cat-name">أنظمة المراقبة والكاميرات</div>
-          <div class="cat-count">+42 منتج متاح</div>
+          <div class="cat-count" id="catCount-camera">جارٍ الحساب...</div>
         </div>
         <div class="cat-arrow">↗</div>
       </div>
-      <div class="cat-card">
+      <div class="cat-card" onclick="goToCategory('battery')" style="cursor:pointer;">
         <div class="cat-bg"></div>
         <div class="cat-border"></div>
-        <div class="cat-icon-wrap">🛡️</div>
+        <div class="cat-icon-wrap"><svg viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l8 4v6c0 5-3.5 8.5-8 10-4.5-1.5-8-5-8-10V6l8-4z"/></svg></div>
         <div class="cat-content">
           <span class="cat-tag">حماية</span>
           <div class="cat-name">حماية البطارية والأجزاء</div>
-          <div class="cat-count">+60 منتج متاح</div>
+          <div class="cat-count" id="catCount-battery">جارٍ الحساب...</div>
         </div>
         <div class="cat-arrow">↗</div>
       </div>
-      <div class="cat-card">
+      <div class="cat-card" onclick="goToCategory('smart')" style="cursor:pointer;">
         <div class="cat-bg"></div>
         <div class="cat-border"></div>
-        <div class="cat-icon-wrap">🎮</div>
+        <div class="cat-icon-wrap"><svg viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></div>
         <div class="cat-content">
           <span class="cat-tag">تقنية</span>
           <div class="cat-name">شاشات وأنظمة ذكية</div>
-          <div class="cat-count">+38 منتج متاح</div>
+          <div class="cat-count" id="catCount-smart">جارٍ الحساب...</div>
         </div>
         <div class="cat-arrow">↗</div>
       </div>
-      <div class="cat-card">
+      <div class="cat-card" onclick="goToCategory('interior')" style="cursor:pointer;">
         <div class="cat-bg"></div>
         <div class="cat-border"></div>
-        <div class="cat-icon-wrap">✨</div>
+        <div class="cat-icon-wrap"><svg viewBox="0 0 24 24" width="1em" height="1em" fill="currentColor"><path d="M12 2l1.5 6.5L20 10l-6.5 1.5L12 18l-1.5-6.5L4 10l6.5-1.5L12 2z"/></svg></div>
         <div class="cat-content">
           <span class="cat-tag">تصميم</span>
           <div class="cat-name">ديكور وتخصيص الداخلية</div>
-          <div class="cat-count">+95 منتج متاح</div>
+          <div class="cat-count" id="catCount-interior">جارٍ الحساب...</div>
         </div>
         <div class="cat-arrow">↗</div>
       </div>
@@ -2223,7 +2223,7 @@
       
       <!-- شريط البحث الجديد -->
       <div class="search-box" style="flex: 1; min-width: 260px; max-width: 400px;">
-        <input type="text" id="searchInput" placeholder="🔍 ابحث عن منتج بالاسم..." style="width: 100%; padding: 12px 20px; background: var(--dark3); border: 1px solid var(--border); border-radius: 4px; color: var(--white); font-family: var(--ff-ar); outline: none; transition: border-color 0.3s;" onfocus="this.style.borderColor='var(--teal)'" onblur="this.style.borderColor='var(--border)'">
+        <input type="text" id="searchInput" placeholder="ابحث عن منتج بالاسم..." style="width: 100%; padding: 12px 20px; background: var(--dark3); border: 1px solid var(--border); border-radius: 4px; color: var(--white); font-family: var(--ff-ar); outline: none; transition: border-color 0.3s;" onfocus="this.style.borderColor='var(--teal)'" onblur="this.style.borderColor='var(--border)'">
       </div>
 
     </div>
@@ -2241,7 +2241,7 @@
     <div class="banner-inner">
       <div class="banner-line"></div>
       <div class="banner-text">
-        <h2>عرض محدود الوقت <span>لأصحاب BYD & Tesla</span></h2>
+        <h2>عرض محدود الوقت</h2>
         <p>احصل على كابل الشحن السريع مجاناً مع كل طلب فوق 3000 جنيه</p>
         <a href="#products" class="btn-primary" style="margin-top:24px;display:inline-flex;">اشتري الآن ←</a>
       </div>
@@ -2261,34 +2261,26 @@
     </div>
     <div class="why-grid">
       <div class="why-card">
-        <div class="why-icon">✅</div>
+        <div class="why-icon"><svg viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l8 4v6c0 5-3.5 8.5-8 10-4.5-1.5-8-5-8-10V6l8-4z"/><path d="M9 12l2 2 4-4"/></svg></div>
         <div class="why-content">
           <h3>منتجات أصلية 100%</h3>
           <p>نختار منتجاتنا بعناية من موردين موثوقين، ونتحقق من جودة كل منتج قبل عرضه في المتجر — لا أي منتج مقلّد أو غير معتمد.</p>
         </div>
       </div>
       <div class="why-card">
-        <div class="why-icon">🚀</div>
+        <div class="why-icon"><svg viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="7" width="14" height="10"/><path d="M15 10h4l3 3v4h-7z"/><circle cx="6" cy="19" r="1.5"/><circle cx="17.5" cy="19" r="1.5"/></svg></div>
         <div class="why-content">
           <h3>شحن سريع لجميع المحافظات</h3>
-          <p>شبكة لوجستية متقدمة تغطي جميع محافظات مصر. نضمن وصول طلبك في أسرع وقت ممكن مع تتبع لحظي لحالة الشحنة عبر
-            تطبيقنا.</p>
+          <p>شبكة لوجستية متقدمة تغطي جميع محافظات مصر. نضمن وصول طلبك في أسرع وقت ممكن مع تحديثك بحالة شحنتك أولاً بأول
+            عبر واتساب.</p>
         </div>
       </div>
       <div class="why-card">
-        <div class="why-icon">🔧</div>
+        <div class="why-icon"><svg viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a4 4 0 1 0-5.4 5.4L2 19l3 3 7.3-7.3a4 4 0 0 0 5.4-5.4l-2.8 2.8-2-2z"/></svg></div>
         <div class="why-content">
           <h3>دعم فني متخصص</h3>
           <p>فريق متخصص في اكسسوارات السيارات متاح 7 أيام في الأسبوع. سواء كنت تحتاج نصيحة للشراء أو مساعدة في التركيب،
             نحن هنا معك في كل خطوة.</p>
-        </div>
-      </div>
-      <div class="why-card">
-        <div class="why-icon">🔄</div>
-        <div class="why-content">
-          <h3>ضمان الإرجاع 30 يوم</h3>
-          <p>ثقتك في اختيارك مضمونة — إذا لم يعجبك المنتج لأي سبب خلال 30 يوم من الاستلام، نسترجعه بالكامل مع استرداد
-            المبلغ دون أي أسئلة.</p>
         </div>
       </div>
       <div class="why-card">
@@ -2300,27 +2292,19 @@
         </div>
       </div>
       <div class="why-card">
-        <div class="why-icon">🌍</div>
+        <div class="why-icon"><svg viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="6" width="20" height="12" rx="2"/><circle cx="12" cy="12" r="3"/></svg></div>
         <div class="why-content">
-          <h3>تغطية إقليمية واسعة</h3>
-          <p>نخدم مصر والسعودية والإمارات وعدد من دول الخليج. شراكات لوجستية راسخة تضمن وصول منتجاتنا لك أينما كنت في
-            المنطقة العربية.</p>
+          <h3>الدفع عند الاستلام</h3>
+          <p>ادفع تمن طلبك نقدًا وقت ما يوصلك لباب البيت — من غير أي حاجة تدفعها مقدمًا أو تشارك بيانات بطاقتك أونلاين.</p>
         </div>
       </div>
     </div>
   </section>
 
   <!-- BRANDS -->
-  <section class="brands" id="brands">
-    <p class="brands-title">العلامات التجارية التي نستوردها</p>
-    <div class="brands-row">
-      <div class="brand-item">BYD</div>
-      <div class="brand-item">TESLA</div>
-      <div class="brand-item">ABB</div>
-      <div class="brand-item">OCPP</div>
-      <div class="brand-item">SIEMENS</div>
-      <div class="brand-item">HUAWEI</div>
-    </div>
+  <section class="brands" id="brands" style="display:none;">
+    <p class="brands-title" id="brandsTitle">العلامات التجارية التي نستوردها</p>
+    <div class="brands-row" id="brandsRow"></div>
   </section>
 
   <!-- NEWSLETTER -->
@@ -2408,14 +2392,14 @@
           <span style="font-family:'Playfair Display',serif;font-size:26px;letter-spacing:2px;font-weight:700;color:#c9a961;">ZED
             AUTO</span>
         </a>
-        <p>الوجهة الأولى لاكسسوارات وتقنيات السيارات في مصر والوطن العربي. نوفر منتجات أصلية بجودة عالمية بأسعار
+        <p>وجهتك لاكسسوارات وتقنيات السيارات في مصر. نوفر منتجات أصلية بجودة عالية بأسعار
           تنافسية مع خدمة عملاء احترافية.</p>
         <div class="footer-social">
           <a href="#" class="social-btn" title="فيسبوك">f</a>
           <a href="#" class="social-btn" title="انستغرام">📸</a>
           <a href="#" class="social-btn" title="تيكتوك">▶</a>
           <a href="#" class="social-btn" title="يوتيوب">▷</a>
-          <a href="https://wa.me/201099117965" id="footerWhatsappBtn" class="social-btn" title="واتساب" target="_blank">💬</a>
+          <a href="https://wa.me/201099117965" id="footerWhatsappBtn" class="social-btn" title="واتساب" target="_blank"><svg viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg></a>
         </div>
       </div>
       <div class="footer-col">
@@ -2444,19 +2428,19 @@
         <h4>تواصل معنا</h4>
         <div class="footer-contact">
           <div class="contact-item">
-            <span class="contact-icon">📍</span>
+            <span class="contact-icon"><svg viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></span>
             <span id="footerAddress">القاهرة، مصر</span>
           </div>
           <div class="contact-item">
-            <span class="contact-icon">📞</span>
+            <span class="contact-icon"><svg viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.9.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg></span>
             <span dir="ltr" id="footerPhone">01099117965</span>
           </div>
           <div class="contact-item">
-            <span class="contact-icon">✉️</span>
+            <span class="contact-icon"><svg viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M22 6l-10 7L2 6"/></svg></span>
             <span id="footerEmail">info@zedauto.com</span>
           </div>
           <div class="contact-item">
-            <span class="contact-icon">🕐</span>
+            <span class="contact-icon"><svg viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg></span>
             <span id="footerHours">السبت–الخميس: 10ص – 10م</span>
           </div>
         </div>
@@ -2475,7 +2459,7 @@
   <!-- QUICK VIEW MODAL -->
   <div class="modal-overlay" id="quickViewModal" onclick="closeQuickView(event)">
     <div class="modal-content" onclick="event.stopPropagation()">
-      <button class="close-modal" onclick="closeQuickView()">✕</button>
+      <button class="close-modal" onclick="closeQuickView()"><svg viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="5" y1="5" x2="19" y2="19"/><line x1="19" y1="5" x2="5" y2="19"/></svg></button>
       <div class="modal-body" id="quickViewBody">
         <!-- سيتم حقن تفاصيل المنتج هنا برمجياً -->
       </div>
@@ -2486,8 +2470,8 @@
   <div class="cart-overlay" id="cartOverlay" onclick="toggleCart()"></div>
   <div class="cart-sidebar" id="cartSidebar">
     <div class="cart-header">
-      <h3 style="color: var(--white); font-size: 20px;">🛒 سلة المشتريات</h3>
-      <button class="close-cart" onclick="toggleCart()">✕</button>
+      <h3 style="color: var(--white); font-size: 20px; display:flex; align-items:center; gap:8px;"><svg viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg> سلة المشتريات</h3>
+      <button class="close-cart" onclick="toggleCart()"><svg viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="5" y1="5" x2="19" y2="19"/><line x1="19" y1="5" x2="5" y2="19"/></svg></button>
     </div>
     
     <!-- هنا ستظهر المنتجات المضافة -->
@@ -2516,24 +2500,24 @@
   <!-- MOBILE BOTTOM NAVIGATION -->
   <div class="mobile-bottom-nav">
     <a href="#home" class="nav-item active">
-      <span class="nav-icon">🏠</span>
+      <span class="nav-icon"><svg viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/></svg></span>
       <span class="nav-label">الرئيسية</span>
     </a>
     <a href="#categories" class="nav-item">
-      <span class="nav-icon">🗂️</span>
+      <span class="nav-icon"><svg viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg></span>
       <span class="nav-label">الفئات</span>
     </a>
     <!-- زر السلة المربوط بالنافذة الجانبية -->
     <a href="#" class="nav-item" onclick="toggleCart(); return false;">
       <div style="position: relative;">
-        <span class="nav-icon">🛒</span>
+        <span class="nav-icon"><svg viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg></span>
         <!-- عداد السلة الخاص بالموبايل -->
         <span class="cart-count-mobile">0</span>
       </div>
       <span class="nav-label">السلة</span>
     </a>
     <a href="#contact" class="nav-item">
-      <span class="nav-icon">💬</span>
+      <span class="nav-icon"><svg viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg></span>
       <span class="nav-label">تواصل</span>
     </a>
   </div>
@@ -2645,6 +2629,14 @@
           card.style.display = 'none';
         }
       });
+    }
+
+    // عند الضغط على كارت فئة في قسم "اكتشف كل ما تحتاجه": ينزل لقسم المنتجات ويفلتر تلقائيًا على نفس الفئة
+    function goToCategory(cat) {
+      const targetBtn = Array.from(document.querySelectorAll('.filter-btn'))
+        .find(b => b.getAttribute('onclick')?.includes(`'${cat}'`));
+      if (targetBtn) filterProducts(targetBtn, cat);
+      document.getElementById('products').scrollIntoView({ behavior: 'smooth' });
     }
 
     function subscribeNewsletter() {
@@ -2817,12 +2809,11 @@
       productsDB.forEach(product => {
         const images = getProductImages(product);
 
-        let badgeHtml = product.badge ? `<span class="product-badge ${product.badge.type}">${product.badge.text}</span>` : '';
-        let oldPriceHtml = product.oldPrice ? `<div class="product-old-price">ج.م ${product.oldPrice.toLocaleString('en-US')}</div>` : '';
+        let badgeHtml = product.badge ? `<span class="product-badge ${product.badge.type}">${product.badge.text}</span>` : '';        let oldPriceHtml = product.oldPrice ? `<div class="product-old-price">ج.م ${product.oldPrice.toLocaleString('en-US')}</div>` : '';
         let unavailableHtml = product.available === false ? `<div class="product-unavailable-overlay">غير متوفر حاليًا</div>` : '';
 
         const productHTML = `
-          <div class="product-card" data-cat="${product.category}">
+          <div class="product-card" data-cat="${product.category}" onclick="openQuickView(${product.id})" style="cursor:pointer;">
             ${badgeHtml}
             ${unavailableHtml}
             <div class="product-img">
@@ -2840,10 +2831,10 @@
                 </div>
                 <div style="display: flex; gap: 8px;">
                   <!-- زر العرض السريع الجديد -->
-                  <button class="add-to-cart" onclick="openQuickView(${product.id})" style="background: var(--dark3); color: var(--teal); border: 1px solid var(--border);" title="نظرة سريعة">👁️</button>
+                  <button class="add-to-cart" onclick="event.stopPropagation(); openQuickView(${product.id})" style="background: var(--dark3); color: var(--teal); border: 1px solid var(--border);" title="نظرة سريعة"><svg viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></button>
                   ${product.available === false
-                    ? `<button class="add-to-cart" disabled style="opacity:0.4; cursor:not-allowed;" title="غير متوفر حاليًا">🛒</button>`
-                    : `<button class="add-to-cart" onclick="addToCart(${product.id})" title="أضف للسلة">🛒</button>`}
+                    ? `<button class="add-to-cart" disabled style="opacity:0.4; cursor:not-allowed;" title="غير متوفر حاليًا"><svg viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg></button>`
+                    : `<button class="add-to-cart" onclick="event.stopPropagation(); addToCart(${product.id})" title="أضف للسلة"><svg viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg></button>`}
                 </div>
               </div>
             </div>
@@ -2851,6 +2842,14 @@
         `;
         
         grid.innerHTML += productHTML;
+      });
+
+      // تحديث عدادات الفئات بأعداد حقيقية من المنتجات الفعلية المتاحة
+      ['charging','camera','battery','smart','interior'].forEach(cat => {
+        const el = document.getElementById(`catCount-${cat}`);
+        if (!el) return;
+        const count = productsDB.filter(p => p.category === cat && p.available !== false).length;
+        el.textContent = count > 0 ? `${count} منتج متاح` : 'قريبًا';
       });
 
       document.querySelectorAll('.product-card').forEach(el => {
@@ -2905,7 +2904,7 @@
               <div class="modal-price"><span>ج.م</span>${product.price.toLocaleString('en-US')}</div>
               ${product.available === false
                 ? `<button class="btn-primary" disabled style="padding: 12px 24px; font-size: 14px; opacity:0.4; cursor:not-allowed;">غير متوفر حاليًا</button>`
-                : `<button class="btn-primary" onclick="addToCartFromModal(${product.id}, this)" style="padding: 12px 24px; font-size: 14px;">أضف للسلة 🛒</button>`}
+                : `<button class="btn-primary" onclick="addToCartFromModal(${product.id}, this)" style="padding: 12px 24px; font-size: 14px; display:inline-flex; align-items:center; gap:8px;">أضف للسلة <svg viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg></button>`}
             </div>
           </div>
         </div>
@@ -2963,6 +2962,17 @@
         Object.entries(map).forEach(([id, val]) => {
           if (val) { const el = document.getElementById(id); if (el) el.textContent = val; }
         });
+
+        // قسم العلامات التجارية: يظهر بس لو أضفت أسماء علامات من لوحة التحكم
+        const brandsSection = document.getElementById('brands');
+        if (s.brands && s.brands.trim()) {
+          const names = s.brands.split(',').map(b => b.trim()).filter(Boolean);
+          document.getElementById('brandsRow').innerHTML = names.map(n => `<div class="brand-item">${n}</div>`).join('');
+          if (s.brandsTitle) document.getElementById('brandsTitle').textContent = s.brandsTitle;
+          brandsSection.style.display = '';
+        } else {
+          brandsSection.style.display = 'none';
+        }
       });
     }
 
@@ -3140,17 +3150,16 @@
     });
 
     // --- دالة فتح وإغلاق قائمة الموبايل ---
+    const ICON_MENU = '<svg viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>';
+    const ICON_CLOSE = '<svg viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="5" y1="5" x2="19" y2="19"/><line x1="19" y1="5" x2="5" y2="19"/></svg>';
+
     function toggleMobileMenu() {
       const navLinks = document.querySelector('.nav-links');
       navLinks.classList.toggle('active');
-      
-      // تغيير شكل الزر بين (☰) و (✕)
+
+      // تغيير شكل الزر بين (فتح) و(إغلاق)
       const btn = document.querySelector('.mobile-menu-btn');
-      if (navLinks.classList.contains('active')) {
-        btn.textContent = '✕';
-      } else {
-        btn.textContent = '☰';
-      }
+      btn.innerHTML = navLinks.classList.contains('active') ? ICON_CLOSE : ICON_MENU;
     }
 
     // إغلاق قائمة الموبايل تلقائياً عند الضغط على أي رابط بداخلها
@@ -3158,7 +3167,7 @@
       link.addEventListener('click', () => {
         if(window.innerWidth <= 768) {
           document.querySelector('.nav-links').classList.remove('active');
-          document.querySelector('.mobile-menu-btn').textContent = '☰';
+          document.querySelector('.mobile-menu-btn').innerHTML = ICON_MENU;
         }
       });
     });
@@ -3167,8 +3176,8 @@
   <div class="cart-overlay" id="cartOverlay" onclick="toggleCart()"></div>
   <div class="cart-sidebar" id="cartSidebar">
     <div class="cart-header">
-      <h3 style="color: var(--white); font-size: 20px;">🛒 سلة المشتريات</h3>
-      <button class="close-cart" onclick="toggleCart()">✕</button>
+      <h3 style="color: var(--white); font-size: 20px; display:flex; align-items:center; gap:8px;"><svg viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg> سلة المشتريات</h3>
+      <button class="close-cart" onclick="toggleCart()"><svg viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="5" y1="5" x2="19" y2="19"/><line x1="19" y1="5" x2="5" y2="19"/></svg></button>
     </div>
     <div class="cart-items" id="cartItemsContainer">
       <div style="text-align: center; color: var(--text-muted); margin-top: 40px;">السلة فارغة حالياً</div>

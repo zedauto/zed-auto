@@ -135,6 +135,14 @@
           <label>ساعات العمل الظاهرة في الفوتر</label>
           <input id="s_hours" placeholder="السبت–الخميس: 10ص – 10م">
         </div>
+        <div class="field">
+          <label>عنوان قسم العلامات التجارية (اختياري)</label>
+          <input id="s_brandsTitle" placeholder="العلامات التجارية التي نتعامل معها">
+        </div>
+        <div class="field">
+          <label>أسماء العلامات التجارية (افصل بينهم بفاصلة) — سيب الحقل فاضي لإخفاء القسم بالكامل</label>
+          <input id="s_brands" placeholder="مثال: ABB, SIEMENS, HUAWEI">
+        </div>
       </div>
       <button class="btn" onclick="saveSettings()">💾 حفظ الإعدادات</button>
       <div id="settingsMsg" style="font-size:13px; margin-top:10px; display:none;"></div>
@@ -356,6 +364,8 @@ function loadSettings(){
     if(s.address) document.getElementById('s_address').value = s.address;
     if(s.email) document.getElementById('s_email').value = s.email;
     if(s.hours) document.getElementById('s_hours').value = s.hours;
+    if(s.brandsTitle) document.getElementById('s_brandsTitle').value = s.brandsTitle;
+    if(s.brands) document.getElementById('s_brands').value = s.brands;
   });
 }
 
@@ -365,7 +375,9 @@ function saveSettings(){
     phone: document.getElementById('s_phone').value.trim(),
     address: document.getElementById('s_address').value.trim(),
     email: document.getElementById('s_email').value.trim(),
-    hours: document.getElementById('s_hours').value.trim()
+    hours: document.getElementById('s_hours').value.trim(),
+    brandsTitle: document.getElementById('s_brandsTitle').value.trim(),
+    brands: document.getElementById('s_brands').value.trim()
   };
   const msg = document.getElementById('settingsMsg');
   window.firebaseDB.collection('settings').doc('general').set(data, { merge: true }).then(() => {
