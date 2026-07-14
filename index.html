@@ -2993,7 +2993,8 @@
 
       // إخفاء الماركي (الشريط المتحرك) والبانر الإعلاني
       document.querySelector('.marquee-wrapper').style.display = 'none';
-      document.querySelector('.promo-banner').style.display = 'none';
+      const promoBannerEl = document.querySelector('.promo-banner');
+      if (promoBannerEl) promoBannerEl.style.display = 'none';
 
       // 4. إظهار قسم الدفع وتحديث الملخص
       document.getElementById('checkoutSection').style.display = 'block';
@@ -3011,7 +3012,8 @@
         if(section) section.style.display = ''; // العودة للحالة الافتراضية
       });
       document.querySelector('.marquee-wrapper').style.display = '';
-      document.querySelector('.promo-banner').style.display = '';
+      const promoBannerElBack = document.querySelector('.promo-banner');
+      if (promoBannerElBack) promoBannerElBack.style.display = '';
 
       window.scrollTo(0, 0);
     }
@@ -3159,24 +3161,6 @@
       });
     });
   </script>
-  <!-- CART SIDEBAR -->
-  <div class="cart-overlay" id="cartOverlay" onclick="toggleCart()"></div>
-  <div class="cart-sidebar" id="cartSidebar">
-    <div class="cart-header">
-      <h3 style="color: var(--white); font-size: 20px; display:flex; align-items:center; gap:8px;"><svg viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg> سلة المشتريات</h3>
-      <button class="close-cart" onclick="toggleCart()"><svg viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="5" y1="5" x2="19" y2="19"/><line x1="19" y1="5" x2="5" y2="19"/></svg></button>
-    </div>
-    <div class="cart-items" id="cartItemsContainer">
-      <div style="text-align: center; color: var(--text-muted); margin-top: 40px;">السلة فارغة حالياً</div>
-    </div>
-    <div class="cart-footer">
-      <div class="cart-total">
-        <span>الإجمالي:</span>
-        <span style="color: var(--teal); font-family: var(--ff-num); font-size: 24px; font-weight: bold;">0 ج.م</span>
-      </div>
-      <a href="#" class="btn-primary" style="width: 100%; justify-content: center; margin-top: 16px;">إتمام الطلب ←</a>
-    </div>
-  </div>
 </body>
 
 </html>
